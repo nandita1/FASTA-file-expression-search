@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesheet.css' %}">
+  </head>
+  <body>
+
+      <h1>FASTA file expression search</h1>
+      <ul class="nav nav-tabs">
+        <li><a href="{% url 'upload' %}">From Multisequence File</a></li>
+        <li><a href="{% url 'uniprot' %}">From Uniprot</a></li>
+        <li class="active"><a href="#">From NCBI</a></li>
+      </ul>
+      <br>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="protein_id">Enter Protein ID: </label>
+          <input type="text" name="protein_id" id='protein_id' class="form-control">
+        </div>
+        <div class="form-group">
+          Or
+        </div>
+        <div class="form-group">
+          <label for="nucleo_id">Enter Nucleotide Accession ID: </label>
+          <input type="text" name="nucleo_id" id='nucleo_id' class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="expr">Enter String: </label>
+          <input type="text" name="expression" id='expr' class="form-control">
+        </div>
+        <div class="form-group">
+          Or
+        </div>
+        <div class="form-group">
+          <label for="regex">Enter Regular Expression: </label>
+          <input type="text" name="regex" id='regex' class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <div class="output" style="padding: 1%;">
+        {% if posted %}
+          {% if connection %}
+            {% if title %}
+              <p>{{title}}</p>
+              <p>{{locations}}</p>
+              {% with ''|add:figure_name as imagePath %}
+              <img src='{% static imagePath %}' style="width: 100%;" />
+              {% endwith %}
+            {% else %}
+              <p>No matches</p>
+            {% endif %}
+          {% else %}
+            <p>Wrong ID entered</p>
+          {% endif %}
+        {% endif %}
+      </div>
+  </body>
+</html>
