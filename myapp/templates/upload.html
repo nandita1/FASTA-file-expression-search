@@ -47,8 +47,8 @@
               {% for item in zipped %}
                 <li>
                 Title: {{ item.0}}<br>Location: {{ item.1 }}<br>
-                <a href="#demo" data-toggle="collapse">Gene Sequence</a>
-                <div id="demo" class="collapse">
+                <a href = '#{{item.5}}' data-toggle="collapse">Gene Sequence</a>
+                <div id='{{item.5}}' class="collapse" style=" overflow-wrap: break-word; word-wrap: break-word;">
                   {{ item.3|highlight:item.4}}
                 </div>
                 {% with ''|add:item.2 as imagePath %}

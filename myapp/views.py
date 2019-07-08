@@ -69,11 +69,13 @@ def upload(request):
 
             #for every gene sequence
             for i in range(j):
+                list_expression = []
+                list_expression.append(expression)
                 features=[]
                 #if the string is present in the sequence
                 if(gene_sequence[i].find(expression))!=-1:
                     matched_sequences.append(gene_sequence[i])
-                    matched_strings.append(expression)
+                    matched_strings.append(list_expression)
                     #get the locations where it is present
                     locations = [m.start() for m in re.finditer(expression, gene_sequence[i])]
                     #titles will hold all the titles of the matched sequences
@@ -138,7 +140,8 @@ def upload(request):
         #zip the two lists to iterate over it in the html document simultaneously
         print(matched_strings)
         no_of_matches = len(titles)
-        zipped = tuple(zip(titles, all_locations,figure_names, matched_sequences, matched_strings))
+        list_of_ids = list(range(no_of_matches))
+        zipped = tuple(zip(titles, all_locations,figure_names, matched_sequences, matched_strings, list_of_ids))
     return render(request, 'upload.html',{'zipped': zipped,'posted':posted, 'length': length, 'no_of_matches': no_of_matches})
 
 
