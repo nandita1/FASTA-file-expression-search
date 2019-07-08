@@ -46,7 +46,11 @@
             <ul>
               {% for item in zipped %}
                 <li>
-                Title: {{ item.0}}<br>Location: {{ item.1 }}
+                Title: {{ item.0}}<br>Location: {{ item.1 }}<br>
+                <a href="#demo" data-toggle="collapse">Gene Sequence</a>
+                <div id="demo" class="collapse">
+                  {{ item.3|highlight:item.4}}
+                </div>
                 {% with ''|add:item.2 as imagePath %}
                 <img src='{% static imagePath %}' style="width: 100%;"/>
                 {% endwith %}
