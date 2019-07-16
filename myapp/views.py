@@ -200,7 +200,7 @@ def ncbi(request):
                 fasta_file = fasta_file.decode('utf-8')
         elif request.POST.get("nucleo_id"):
             nucleo_id = request.POST.get("nucleo_id")
-            driver = webdriver.Chrome(executable_path="C:\\Users\\Hp\\Documents\\chromedriver.exe")
+            driver = webdriver.Chrome(executable_path="myapp/chromedriver.exe")
             try:
                 driver.get("https://www.ncbi.nlm.nih.gov/nuccore/"+nucleo_id+"?report=fasta&log$=seqview&format=text")
             except ConnectionError:
